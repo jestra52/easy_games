@@ -1,0 +1,37 @@
+User
+{
+    id: ObjectID,
+    username: String,
+    email: String,
+    password: String (encrypted),
+    wishList: [
+        {
+            id: Game.id, 
+            info: <Game info>
+        }
+    ],
+    steamProfile: <Profile given by Steam API>,
+    googleAccount: <Google SSO>,
+    facebookAccount: <Facebook SSO>
+}
+
+Game
+{
+    id: <Prodiver id given by its API>,
+    name: String (may be given by an API),
+    description: String (may be given by an API),
+    gender: [ 
+        {
+            id: Gender.id,
+            name: Gender.name
+        }
+    ],
+    info: <Info about game given by an API, like price for example>
+}
+
+Gender
+{
+    id: ObjectID,
+    gamesIn: [ Game.id ]
+    name: String
+}
