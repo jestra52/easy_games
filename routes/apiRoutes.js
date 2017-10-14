@@ -7,6 +7,7 @@ const passport  = require('passport');
  * API CONTROLLERS
  */
 const userController = require('../controllers/userController');
+const services       = require('../services');
 
 // Index route
 apiRouter.get('/', (req, res) => {

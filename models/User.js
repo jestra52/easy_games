@@ -1,6 +1,6 @@
 'use strict';
 
-const mongoose  = require('mongoose');
+const mongoose = require('mongoose');
 
 var UserSchema = new mongoose.Schema({
     username: String,
@@ -9,6 +9,7 @@ var UserSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
     birth: Date,
+    steamProfile: Object,
     createdAt: Date,
     updatedAt: Date
 });
