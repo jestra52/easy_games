@@ -4,6 +4,9 @@ User
     username: String,
     email: String,
     password: String (encrypted),
+    firstName: String,
+    lastName: String,
+    birth: Date,
     wishList: [
         {
             id: Game.id, 
@@ -12,12 +15,13 @@ User
     ],
     steamProfile: <Profile given by Steam API>,
     googleAccount: <Google SSO>,
-    facebookAccount: <Facebook SSO>
+    facebookAccount: <Facebook SSO>.
+    createdAt: Date
 }
 
 Game
 {
-    id: <Prodiver id given by its API>,
+    id: <Provider id given by its API>,
     name: String (may be given by an API),
     description: String (may be given by an API),
     gender: [ 

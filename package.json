@@ -18,10 +18,14 @@
   "homepage": "https://github.com/jestra52/jjpluresanime#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.1",
+    "express-session": "^1.15.6",
     "mongoose": "^4.11.14",
     "morgan": "^1.9.0",
     "normalize-path": "^2.1.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "waveless": "^1.1.6"
   }
 }
