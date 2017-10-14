@@ -119,7 +119,7 @@ module.exports = {
 
     /*********************************************************************************
      * Web service: Delete the current user (actual session)
-     * URI: /api/user/delete/:id
+     * URI: /api/user/delete
      * Method: DELETE
      */
     delete: (req, res) => {
