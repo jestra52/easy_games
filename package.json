@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/jestra52/jjpluresanime#readme",
   "dependencies": {
-    "axios": "^0.16.2",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.1",
@@ -27,7 +26,6 @@
     "normalize-path": "^2.1.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "request": "^2.83.0",
-    "waveless": "^1.1.6"
+    "request": "^2.83.0"
   }
 }
