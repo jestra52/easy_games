@@ -6,7 +6,7 @@ module.exports = {
 
     ip: '127.0.0.1',
     port: '3000',
-    rootPath: normalize(__dirname + '/'),
+    rootPath: normalize(process.env.PWD),
     baseURL: '/',
     app: {
         name: 'easy_games',

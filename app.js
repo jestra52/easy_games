@@ -32,6 +32,9 @@ app.use(session({
     saveUninitialized: true,
     proxy: true
 }));
+app.use(express.static(config.rootPath + '/public'));
+app.set('views', config.rootPath + '/views');
+app.set('view engine', 'ejs');
 require('./config/passport')(app);
 
 // Routes conf

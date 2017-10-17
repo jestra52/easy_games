@@ -11,7 +11,7 @@ const services       = require('../services');
 
 // Index route
 apiRouter.get('/', (req, res) => {
-    res.send('API ROUTER IS WORKING!');
+    res.render('index', { title: 'API IS WORKING!'});
 });
 
 // Middlewares to verify user
