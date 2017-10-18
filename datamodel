@@ -16,9 +16,24 @@ User
     steamProfile: <Profile given by Steam API>,
     googleAccount: <Google SSO>,
     facebookAccount: <Facebook SSO>.
-    createdAt: Date
+    createdAt: Date,
+    updatedAt: Date
 }
 
+Game
+{
+    name: String,
+    picture: String,
+    price: {
+      type: Number,
+      default: 0
+    },
+    link: String
+    createdAt: Date,
+    updatedAt: Date
+}
+
+####### OLD #######
 Game
 {
     id: <Provider id given by its API>,
@@ -32,6 +47,7 @@ Game
     ],
     info: <Info about game given by an API, like price for example>
 }
+##############
 
 Gender
 {
