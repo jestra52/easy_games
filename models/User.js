@@ -14,4 +14,4 @@ var UserSchema = new mongoose.Schema({
     updatedAt: Date
 });
 
-module.exports = mongoose.model('users', UserSchema);
+module.exports = mongoose.model('user', UserSchema);
