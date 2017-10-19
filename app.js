@@ -3,22 +3,43 @@
 /*********************************************************************************
  * REQUIRES AND VARIABLES
  */
-const express    = require('express');
-const bodyParser = require('body-parser');
-const mongoose   = require('mongoose');
-const logger     = require('morgan');
-const app        = express();
-const api        = require ('./routes');
-const config     = require('./config');
+const express      = require('express');
+const bodyParser   = require('body-parser');
+const cookieParser = require('cookie-parser');
+const mongoose     = require('mongoose');
+const logger       = require('morgan');
+const session      = require('express-session');
+const app          = express();
+
+// Config requires
+const config = require('./config/config');
+
+// Routes requires
+const apiRoutes  = require('./routes/apiRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 /*********************************************************************************
  * APP CONFIGURATION
  */
 mongoose.Promise = global.Promise;
+app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(logger('dev'));
-app.use('/api', api);
+app.use(cookieParser());
+app.use(session({
+    secret: 'library',
+    resave: true,
+    saveUninitialized: true,
+    proxy: true
+}));
+app.use(express.static(config.rootPath + '/public'));
+app.set('views', config.rootPath + '/views');
+app.set('view engine', 'ejs');
+require('./config/passport')(app);
+
+// Routes conf
+app.use(config.baseURL + 'api', apiRoutes);
+app.use(config.baseURL + 'auth', authRoutes);
 
 /*********************************************************************************
  * DATABASE CONFIGURATION
@@ -43,5 +64,5 @@ mongoose.connect(config.db, { useMongoClient: true }, (err, res) => {
  * APP SERVER CONFIGURATION
  */
 app.listen(config.port, () => {
-    console.info('App running on http://' + config.ip + ':' + config.port + '');
+    console.log('App running on http://' + config.ip + ':' + config.port + '');
 }); 

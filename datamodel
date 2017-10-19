@@ -4,6 +4,9 @@ User
     username: String,
     email: String,
     password: String (encrypted),
+    firstName: String,
+    lastName: String,
+    birth: Date,
     wishList: [
         {
             id: Game.id, 
@@ -12,12 +15,28 @@ User
     ],
     steamProfile: <Profile given by Steam API>,
     googleAccount: <Google SSO>,
-    facebookAccount: <Facebook SSO>
+    facebookAccount: <Facebook SSO>.
+    createdAt: Date,
+    updatedAt: Date
 }
 
 Game
 {
-    id: <Prodiver id given by its API>,
+    name: String,
+    picture: String,
+    price: {
+      type: Number,
+      default: 0
+    },
+    link: String
+    createdAt: Date,
+    updatedAt: Date
+}
+
+####### OLD #######
+Game
+{
+    id: <Provider id given by its API>,
     name: String (may be given by an API),
     description: String (may be given by an API),
     gender: [ 
@@ -28,6 +47,7 @@ Game
     ],
     info: <Info about game given by an API, like price for example>
 }
+##############
 
 GameGender
 {
