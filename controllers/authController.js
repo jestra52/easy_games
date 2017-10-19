@@ -5,6 +5,7 @@ const User = require('../models/User');
 module.exports = {
 
     /*********************************************************************************
+     * Web service: Log in with a given username and password
      * URI: /auth/login
      * Method: POST
      */
@@ -17,6 +18,7 @@ module.exports = {
     },
 
     /*********************************************************************************
+     * Web service: Log out of the current session
      * URI: /auth/logout
      * Method: GET
      */
@@ -39,7 +41,7 @@ module.exports = {
     },
 
     /*********************************************************************************
-     * URI: /auth/failure
+     * Web service: Verify users
      * Method: GET
      */
     localStrategy: (username, password, done) => {
