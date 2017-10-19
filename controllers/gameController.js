@@ -7,7 +7,7 @@ module.exports = {
     /*********************************************************************************
      * Web service: Create a new game
      * URI: /api/game
-     * Method: GET
+     * Method: POST
      */
     saveGame: (req, res) => {      
         let game = new Game();
