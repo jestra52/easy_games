@@ -22,7 +22,7 @@ module.exports = {
 
         // Setting schema attributes
         var steamID = req.body.steamID;     
-        
+
         services.steamProfile(steamKey, steamID, (steamProfileData) => {
             userToCreate.username     = req.body.username;
             userToCreate.email        = req.body.email;
@@ -34,7 +34,7 @@ module.exports = {
             userToCreate.steamProfile = steamProfileData;
             userToCreate.createdAt    = date.toISOString();
             userToCreate.updatedAt    = date.toISOString();
-    
+
             // Saving new schema in MongoDB
             userToCreate.save((err, userStored) => {
                 if (err) return res.status(500).send({
@@ -49,7 +49,7 @@ module.exports = {
                     return res.status(200).send({ userStored: userStored });
                 });
             });
-        });
+        });        
     },
 
     /*********************************************************************************

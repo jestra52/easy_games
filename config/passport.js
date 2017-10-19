@@ -1,11 +1,11 @@
 'use strict';
 
-const passport          = require('passport');
-const LocalStrategy     = require('passport-local').Strategy;
-const GoogleStrategy    = require('passport-google-oauth2').Strategy;
-const strategyFunctions = require('./strategyFunctions');
-const User              = require('../models/User');
-const config            = require('./config');
+const passport       = require('passport');
+const LocalStrategy  = require('passport-local').Strategy;
+const GoogleStrategy = require('passport-google-oauth2').Strategy;
+const authController = require('../controllers/authController');
+const User           = require('../models/User');
+const config         = require('./config');
 
 module.exports = (app) => {
 
@@ -38,7 +38,7 @@ module.exports = (app) => {
     passport.use(new LocalStrategy({
         usernameField: 'username',
         passwordField: 'password'
-    }, strategyFunctions.localStrategy ));
+    }, authController.localStrategy ));
     
     // Google SSO strategy
     passport.use(new GoogleStrategy({
@@ -46,6 +46,6 @@ module.exports = (app) => {
         clientSecret: '7qdKpdPGdbzGAk70AcJwLW2V',
         callbackURL: 'http://' + config.ip + ':' + config.port + '/auth/google/callback',
         passReqToCallback: true
-    }, strategyFunctions.googleStrategyFunction ));
+    }, authController.googleStrategy ));
 
 };

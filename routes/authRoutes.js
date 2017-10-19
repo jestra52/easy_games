@@ -35,11 +35,9 @@ authRouter.get('/logout', authController.logout);
 
 // Google auth
 authRouter.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
-
 authRouter.get('/google/callback', passport.authenticate( 'google', {
     failureRedirect: '/auth/failure'
 }), (req, res) =>  {
-    console.log('GOOGLE AUTH SUCCESSFUL!');
     res.send( {
         status: 'GOOGLE AUTH SUCCESSFUL!',
         profile: req.session.passport.user
