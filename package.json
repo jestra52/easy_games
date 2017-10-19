@@ -8,14 +8,14 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/jestra52/jjpluresanime.git"
+        "url": "git+https://github.com/jestra52/easy_games.git"
     },
     "author": "",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/jestra52/jjpluresanime/issues"
+        "url": "https://github.com/jestra52/easy_games/issues"
     },
-    "homepage": "https://github.com/jestra52/jjpluresanime#readme",
+    "homepage": "https://github.com/jestra52/easy_games#readme",
     "dependencies": {
         "body-parser": "^1.18.2",
         "cookie-parser": "^1.4.3",
