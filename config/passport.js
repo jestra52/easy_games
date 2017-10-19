@@ -1,9 +1,11 @@
 'use strict';
 
-const passport       = require('passport');
-const LocalStrategy  = require('passport-local').Strategy;
-const GoogleStrategy = require('passport-google-oauth2').Strategy;
-const User           = require('../models/User');
+const passport          = require('passport');
+const LocalStrategy     = require('passport-local').Strategy;
+const GoogleStrategy    = require('passport-google-oauth2').Strategy;
+const strategyFunctions = require('./strategyFunctions');
+const User              = require('../models/User');
+const config            = require('./config');
 
 module.exports = (app) => {
 
@@ -11,19 +13,19 @@ module.exports = (app) => {
     app.use(passport.session());
 
     passport.serializeUser(function (user, done) {
-        done(null, user.id);
+        done(null, user);
     });
     
     passport.deserializeUser(function (id, done) {
         User.findById(id, (err, userData) => {
             if (err) {
-                return res.status(500).send({
+                return done(null, {
                     message: 'Error getting user' + err
                 });
             }
 
             if (!userData) {
-                return res.status(400).send({
+                return done(null, {
                     message: 'The user does not exist'
                 });
             }
@@ -36,28 +38,14 @@ module.exports = (app) => {
     passport.use(new LocalStrategy({
         usernameField: 'username',
         passwordField: 'password'
-    },
-    (username, password, done) => {
-        var userObj = {
-            username: username,
-            password: password
-        };
-
-        User.findOne(userObj, (err, userData) => {
-            if (err) { 
-                return done(err); 
-            }
-
-            if (!userData) {
-                return done(null, false, { message: 'Incorrect username' });
-            }
-            
-            if (userData.password != password) {
-                return done(null, false, { message: 'Incorrect password' });
-            }
-
-            return done(null, userData);
-        });
-    }));    
+    }, strategyFunctions.localStrategy ));
+    
+    // Google SSO strategy
+    passport.use(new GoogleStrategy({
+        clientID: '1044496185163-66gct90tkp40ssur7m3mj2dam5qelifa.apps.googleusercontent.com',
+        clientSecret: '7qdKpdPGdbzGAk70AcJwLW2V',
+        callbackURL: 'http://' + config.ip + ':' + config.port + '/auth/google/callback',
+        passReqToCallback: true
+    }, strategyFunctions.googleStrategyFunction ));
 
 };

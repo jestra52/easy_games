@@ -9,7 +9,17 @@ var UserSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
     birth: Date,
+    gender: String,
     steamProfile: Object,
+    googleProfile: {
+        googleid: String,
+        token: String,
+        email: String,
+        name: String,
+        gender: String,
+        profileurl: String,
+        language: String
+    },
     createdAt: Date,
     updatedAt: Date
 });

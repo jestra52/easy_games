@@ -30,6 +30,7 @@ module.exports = {
             userToCreate.firstName    = req.body.firstName;
             userToCreate.lastName     = req.body.lastName;
             userToCreate.birth        = new Date(req.body.birth).toISOString();
+            userToCreate.gender       = req.body.gender;
             userToCreate.steamProfile = steamProfileData;
             userToCreate.createdAt    = date.toISOString();
             userToCreate.updatedAt    = date.toISOString();

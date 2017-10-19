@@ -87,13 +87,17 @@ module.exports = {
                 message: "Error removing game: " + err
             });
 
+            if (!game) return res.status(404).send({
+                message: 'The game does not exist'
+            });
+
             game.remove((errG) => {
                 if (errG) res.status(500).send({
                     message: "Error removing game: " + errG
                 });
 
                 res.status(200).send({
-                    message: 'The user has been deleted'
+                    message: 'The game has been deleted'
                 });
             });
         });
