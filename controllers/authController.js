@@ -65,7 +65,7 @@ module.exports = {
     },
     
     /*********************************************************************************
-     * Web service: Create or read a new user with Google account
+     * Web service: Create or read a new user with a Google account
      * URI: /auth/google
      * Method: GET
      */
@@ -82,6 +82,7 @@ module.exports = {
                 var offset = date.getTimezoneOffset();
                 date.setMinutes(date.getMinutes() - offset);
 
+                // Preparing Google data to save in DB
                 var newUser = new User();
                 newUser.googleProfile.googleid   = profile.id;
                 newUser.googleProfile.token      = accessToken;
@@ -90,8 +91,8 @@ module.exports = {
                 newUser.googleProfile.gender     = profile.gender;
                 newUser.googleProfile.profileurl = profile._json.url;
                 newUser.googleProfile.language   = profile.language;
-                newUser.createdAt    = date.toISOString();
-                newUser.updatedAt    = date.toISOString();
+                newUser.createdAt                = date.toISOString();
+                newUser.updatedAt                = date.toISOString();
 
                 newUser.save((err, newUser) => {
                     if (err)
@@ -107,6 +108,43 @@ module.exports = {
                 });
             }
         });
-    } 
+    },
+
+    /*********************************************************************************
+     * Web service: Create or read a new user with a Facebook account
+     * URI: /auth/facebook
+     * Method: GET
+     */
+    facebookStrategy: (accessToken, refreshToken, profile, done) => {
+        User.findOne({ 'facebookProfile.fbid': profile.id }, (err, user) => {
+            if (err)
+                throw err;
+            if (user)
+                return done(null, user);
+            else {
+                // Setting actual time
+                var date   = new Date();
+                var offset = date.getTimezoneOffset();
+                date.setMinutes(date.getMinutes() - offset);
+
+                // Preparing Facebook data to save in DB
+                var newUser = new User();
+                newUser.facebookProfile.fbid       = profile.id;
+                newUser.facebookProfile.token      = accessToken;
+                newUser.facebookProfile.name       = profile.name.givenName + ' ' + profile.name.familyName;
+                newUser.facebookProfile.gender     = profile.gender;
+                newUser.facebookProfile.profileurl = profile.profileUrl;
+                newUser.createdAt                  = date.toISOString();
+                newUser.updatedAt                  = date.toISOString();
+
+                newUser.save((err, newUser) => {
+                    if (err)
+                        throw err;
+
+                    return done(null, newUser);
+                });
+            }
+        });
+    }
     
 };

@@ -71,4 +71,10 @@ Made with Node.js, Vue.js, Express.js and MongoDB.
 * URI: /auth/google
 * Method: GET
 */
+
+/*********************************************************************************
+* Web service: Create or read a new user with a Facebook account
+* URI: /auth/facebook
+* Method: GET
+*/
 ```

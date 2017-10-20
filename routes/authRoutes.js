@@ -44,4 +44,17 @@ authRouter.get('/google/callback', passport.authenticate( 'google', {
     });
 });
 
+// Facebook auth
+authRouter.get('/facebook', passport.authenticate('facebook'));
+authRouter.get('/facebook/callback', passport.authenticate('facebook', {
+    failureRedirect: '/auth/failure' 
+}), (req, res) => {
+    req.login(req.session.passport.user, () => {
+        res.send( {
+            status: 'FACEBOOK AUTH SUCCESSFUL!',
+            profile: req.session.passport.user
+        });
+    });
+});
+
 module.exports = authRouter;
