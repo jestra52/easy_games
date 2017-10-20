@@ -67,20 +67,12 @@ var appServer = app.listen(config.port, () => {
     console.log('App server running on http://' + config.ip + ':' + config.port + '');
 });
 
-function exitHandler(options, err) {
-    if (options.cleanup) {
-        console.log('clean');
-
+process.on('SIGINT', () => {
+    setTimeout(() => {
         appServer.close(() => {
+            console.log('App server is stopping...');
+            mongoose.connection.close();
             process.exit(0);
         });
-    }
-    if (err) console.log(err.stack);
-    if (options.exit) process.exit();
-}
-
-process.on('exit', exitHandler.bind(null,{cleanup:true}));
-process.on('SIGINT', exitHandler.bind(null, {exit:true}));
-process.on('SIGUSR1', exitHandler.bind(null, {exit:true}));
-process.on('SIGUSR2', exitHandler.bind(null, {exit:true}));
-process.on('uncaughtException', exitHandler.bind(null, {exit:true}));
+    }, 500);
+});
