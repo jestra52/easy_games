@@ -17,6 +17,7 @@ const config = require('./config/config');
 // Routes requires
 const apiRoutes  = require('./routes/apiRoutes');
 const authRoutes = require('./routes/authRoutes');
+const viewRoutes = require('./routes/viewRoutes');
 
 /*********************************************************************************
  * APP CONFIGURATION
@@ -40,6 +41,7 @@ require('./config/passport')(app);
 // Routes conf
 app.use(config.baseURL + 'api', apiRoutes);
 app.use(config.baseURL + 'auth', authRoutes);
+app.use(config.baseURL, viewRoutes);
 
 /*********************************************************************************
  * DATABASE CONFIGURATION
