@@ -34,7 +34,7 @@ app.use(session({
     proxy: true
 }));
 app.use(express.static(config.rootPath + '/public'));
-app.set('views', config.rootPath + '/views');
+app.set('views', __dirname + '/views/');
 app.set('view engine', 'ejs');
 require('./config/passport')(app);
 
