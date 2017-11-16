@@ -123,6 +123,7 @@ module.exports = {
         services.dexiiogames((data) => {
             if (data == undefined) {
                 res.status(200).send({
+                    error: true,
                     message: 'There is no data to show'
                 });
             }

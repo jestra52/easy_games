@@ -25,7 +25,8 @@ module.exports = {
             "Accept" : "application/json",
             "Content-Type" : "application/json"
         } }).then((res) => {
-            return callback(res.data.row);
+            console.log(res.data);
+            return callback(res.data.rows);
         });
     }
 
