@@ -16,7 +16,11 @@ authRouter.get('/', (req, res) => {
 // Middlewares to verify user
 authRouter.all('/logout', (req, res, next) => {
     if (!req.user) {
-        return res.status(401).send('Unauthorized');
+        return res.status(401).send({
+            status: 401,
+            authorized: false,
+            message: 'Unauthorized'
+        });
     }
 
     next();
@@ -38,9 +42,11 @@ authRouter.get('/google', passport.authenticate('google', { scope: ['profile', '
 authRouter.get('/google/callback', passport.authenticate( 'google', {
     failureRedirect: '/auth/failure'
 }), (req, res) =>  {
+    res.header("Access-Control-Allow-Origin", "*");
+
     res.send( {
         status: 'GOOGLE AUTH SUCCESSFUL!',
-        profile: req.session.passport.user
+        user: req.session.passport.user
     });
 });
 
@@ -49,10 +55,12 @@ authRouter.get('/facebook', passport.authenticate('facebook'));
 authRouter.get('/facebook/callback', passport.authenticate('facebook', {
     failureRedirect: '/auth/failure' 
 }), (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+
     req.login(req.session.passport.user, () => {
         res.send( {
             status: 'FACEBOOK AUTH SUCCESSFUL!',
-            profile: req.session.passport.user
+            user: req.session.passport.user
         });
     });
 });

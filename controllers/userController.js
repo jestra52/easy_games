@@ -12,6 +12,8 @@ module.exports = {
      * Method: POST
      */
     create: (req, res) => {
+        res.header("Access-Control-Allow-Origin", "*");
+
         User.findOne({username: req.body.username}, (errF, userFound) => {
             if (errF)
                 throw errF;
@@ -30,7 +32,10 @@ module.exports = {
                 date.setMinutes(date.getMinutes() - offset);
         
                 // Setting schema attributes
-                var steamID = req.body.steamID;     
+                var protomatch = /^(https?|ftp):\/\//; 
+                var steamProfile = req.body.steamProfile;
+                var cleanUrl = steamProfile.replace(protomatch, '');
+                var steamID = cleanUrl.split('/')[2];
 
                 services.steamProfile(steamKey, steamID, (steamProfileData) => {
                     userToCreate.username     = req.body.username;
@@ -68,6 +73,8 @@ module.exports = {
      * Method: GET
      */
     read: (req, res) => {
+        res.header("Access-Control-Allow-Origin", "*");
+
         // User from passport session
         var userID = req.user._id; 
         // Getting user info
@@ -94,6 +101,8 @@ module.exports = {
      * Method: PUT
      */
     update: (req, res) => {
+        res.header("Access-Control-Allow-Origin", "*");
+
         // User from passport session
         var userID = req.user._id; 
 
@@ -104,27 +113,38 @@ module.exports = {
 
         // Data to update
         var dataToUpdate = req.body;
+        var steamID      = "";
 
         if (dataToUpdate.birth) {
             dataToUpdate.birth = new Date(req.body.birth).toISOString();
         }
-        
-        dataToUpdate.updatedAt = date.toISOString();
-        
-        User.findByIdAndUpdate(userID, dataToUpdate, (err, userUpdated) => {
-            if (err) {
-                return res.status(500).send({
-                    message: 'Error updating user: ' + err
-                });
-            }
 
-            if (!userUpdated) {
-                return res.status(400).send({
-                    message: 'The user does not exist'
-                });
-            }
-
-            return res.status(200).send({ userUpdated: {id: userUpdated._id, params_updated: dataToUpdate} });
+        if (dataToUpdate.steamProfile) {
+            var protomatch   = /^(https?|ftp):\/\//; 
+            var steamProfile = req.body.steamProfile;
+            var cleanUrl     = steamProfile.replace(protomatch, '');
+            steamID          = cleanUrl.split('/')[2];
+        }
+        
+        services.steamProfile(steamKey, steamID, (steamProfileData) => {
+            dataToUpdate.steamProfile = steamProfileData;
+            dataToUpdate.updatedAt    = date.toISOString();
+            
+            User.findByIdAndUpdate(userID, dataToUpdate, (err, userUpdated) => {
+                if (err) {
+                    return res.status(500).send({
+                        message: 'Error updating user: ' + err
+                    });
+                }
+    
+                if (!userUpdated) {
+                    return res.status(400).send({
+                        message: 'The user does not exist'
+                    });
+                }
+    
+                return res.status(200).send({ userUpdated: {id: userUpdated._id, params_updated: dataToUpdate} });
+            });
         });
     },
 
@@ -134,6 +154,8 @@ module.exports = {
      * Method: DELETE
      */
     delete: (req, res) => {
+        res.header("Access-Control-Allow-Origin", "*");
+        
         // User from passport session
         var userID = req.user._id; 
         // Getting user info to delete

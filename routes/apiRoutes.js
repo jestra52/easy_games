@@ -18,7 +18,11 @@ apiRouter.get('/', (req, res) => {
 // Middlewares to verify user
 apiRouter.all('/user/read', (req, res, next) => {
     if (!req.user) {
-        return res.status(401).send('Unauthorized');
+        return res.status(401).send({
+            status: 401,
+            authorized: false,
+            message: 'Unauthorized'
+        });
     }
 
     next();
@@ -26,7 +30,11 @@ apiRouter.all('/user/read', (req, res, next) => {
 
 apiRouter.all('/user/update', (req, res, next) => {
     if (!req.user) {
-        return res.status(401).send('Unauthorized');
+        return res.status(401).send({
+            status: 401,
+            authorized: false,
+            message: 'Unauthorized'
+        });
     }
 
     next();
@@ -34,7 +42,11 @@ apiRouter.all('/user/update', (req, res, next) => {
 
 apiRouter.all('/user/delete', (req, res, next) => {
     if (!req.user) {
-        return res.status(401).send('Unauthorized');
+        return res.status(401).send({
+            status: 401,
+            authorized: false,
+            message: 'Unauthorized'
+        });
     }
 
     next();

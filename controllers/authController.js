@@ -10,7 +10,10 @@ module.exports = {
      * Method: POST
      */
     login: (req, res) => {
+        res.header("Access-Control-Allow-Origin", "*");
+
         res.status(200).send({
+            authenticated: true,
             authenticationStatus: 'successful',
             authenticatedAs: req.user.username,
             userID: req.user._id
@@ -23,8 +26,11 @@ module.exports = {
      * Method: GET
      */
     logout: (req, res) => {
+        res.header("Access-Control-Allow-Origin", "*");
+
         req.session.destroy(() => {
             res.status(200).send({
+                session_closed: true,
                 logoutStatus: 'successful'
             });
         });
@@ -35,7 +41,10 @@ module.exports = {
      * Method: GET
      */
     failure: (req, res) => {
+        res.header("Access-Control-Allow-Origin", "*");
+        
         res.status(400).send({
+            error: true,
             authenticationStatus: 'failed',
         });
     },
@@ -55,10 +64,10 @@ module.exports = {
                 return done(err); 
 
             if (!userData) 
-                return done(null, false, { message: 'Incorrect username' });
+                return done(null, false, { auth_error: true, message: 'Incorrect username' });
             
             if (userData.password != password) 
-                return done(null, false, { message: 'Incorrect password' });
+                return done(null, false, { auth_error: true, message: 'Incorrect password' });
 
             return done(null, userData);
         });

@@ -11,6 +11,8 @@ module.exports = {
      * Method: POST
      */
     saveGame: (req, res) => {
+        res.header("Access-Control-Allow-Origin", "*");
+        
         let game = new Game();
         game.name = req.body.name;
         game.picture = req.body.picture;
@@ -34,6 +36,8 @@ module.exports = {
      * Method: GET
      */
     getGame: (req, res) => {
+        res.header("Access-Control-Allow-Origin", "*");
+
         let gameID = req.params.gameID;
         
         Game.findById(gameID, function(err, game) {
@@ -57,6 +61,8 @@ module.exports = {
      * Method: PUT
      */
     updateGame: (req, res) => {
+        res.header("Access-Control-Allow-Origin", "*");
+
         let gameID = req.params.gameID;
         let update = req.body;
       
@@ -81,6 +87,8 @@ module.exports = {
      * Method: DELETE
      */
     deleteGame: (req, res) => {
+        res.header("Access-Control-Allow-Origin", "*");
+
         let gameID = req.params.gameID
         
         Game.findById(gameID, (err, game) => {
@@ -110,25 +118,31 @@ module.exports = {
      * Method: GET
      */
     externalgames: (req, res) => {
+        res.header("Access-Control-Allow-Origin", "*");
+
         services.dexiiogames((data) => {
-            if (data == undefined) res.status(404).send({
-                message: 'There is no data to show'
-            });
-
-            var cleanData = [];
-
-            for (var i = 0; i < data.length; i++) {
-                var result = {
-                    name: data[i][0],
-                    image: data[i][1],
-                    link: 'https://www.g2a.com' + data[i][2],
-                    price: data[i][3]
-                };
-
-                cleanData.push(result);
+            if (data == undefined) {
+                res.status(200).send({
+                    error: true,
+                    message: 'There is no data to show'
+                });
             }
-
-            res.send(cleanData);
+            else {
+                var cleanData = [];
+                
+                for (var i = 0; i < data.length; i++) {
+                    var result = {
+                        name: data[i][0],
+                        image: data[i][1],
+                        link: 'https://www.g2a.com' + data[i][2],
+                        price: data[i][3]
+                    };
+    
+                    cleanData.push(result);
+                }
+    
+                res.send(cleanData);
+            }
         });
     }
 
