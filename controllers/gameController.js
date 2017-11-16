@@ -111,6 +111,10 @@ module.exports = {
      */
     externalgames: (req, res) => {
         services.dexiiogames((data) => {
+            if (data == undefined) res.status(404).send({
+                message: 'There is no data to show'
+            });
+
             var cleanData = [];
 
             for (var i = 0; i < data.length; i++) {
