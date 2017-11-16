@@ -11,6 +11,8 @@ module.exports = {
      * Method: POST
      */
     saveGame: (req, res) => {
+        res.header("Access-Control-Allow-Origin", "*");
+        
         let game = new Game();
         game.name = req.body.name;
         game.picture = req.body.picture;
@@ -34,6 +36,8 @@ module.exports = {
      * Method: GET
      */
     getGame: (req, res) => {
+        res.header("Access-Control-Allow-Origin", "*");
+
         let gameID = req.params.gameID;
         
         Game.findById(gameID, function(err, game) {
@@ -57,6 +61,8 @@ module.exports = {
      * Method: PUT
      */
     updateGame: (req, res) => {
+        res.header("Access-Control-Allow-Origin", "*");
+
         let gameID = req.params.gameID;
         let update = req.body;
       
@@ -81,6 +87,8 @@ module.exports = {
      * Method: DELETE
      */
     deleteGame: (req, res) => {
+        res.header("Access-Control-Allow-Origin", "*");
+
         let gameID = req.params.gameID
         
         Game.findById(gameID, (err, game) => {
