@@ -1,6 +1,7 @@
 'use strict';
 
-const Game = require('../models/Game');
+const Game     = require('../models/Game');
+const services = require('../services');
 
 module.exports = {
 
@@ -9,7 +10,7 @@ module.exports = {
      * URI: /api/game
      * Method: POST
      */
-    saveGame: (req, res) => {      
+    saveGame: (req, res) => {
         let game = new Game();
         game.name = req.body.name;
         game.picture = req.body.picture;
@@ -100,6 +101,30 @@ module.exports = {
                     message: 'The game has been deleted'
                 });
             });
+        });
+    },
+
+    /*********************************************************************************
+     * Web service: Get external games from our robot
+     * URI: /api/externalgames
+     * Method: GET
+     */
+    externalgames: (req, res) => {
+        services.dexiiogames((data) => {
+            var cleanData = [];
+
+            for (var i = 0; i < data.length; i++) {
+                var result = {
+                    name: data[i][0],
+                    image: data[i][1],
+                    link: 'https://www.g2a.com' + data[i][2],
+                    price: data[i][3]
+                };
+
+                cleanData.push(result);
+            }
+
+            res.send(cleanData);
         });
     }
 

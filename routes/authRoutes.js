@@ -16,7 +16,7 @@ authRouter.get('/', (req, res) => {
 // Middlewares to verify user
 authRouter.all('/logout', (req, res, next) => {
     if (!req.user) {
-        return res.status(400).send('Unauthorized');
+        return res.status(401).send('Unauthorized');
     }
 
     next();

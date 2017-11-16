@@ -77,4 +77,10 @@ Made with Node.js, Vue.js, Express.js and MongoDB.
 * URI: /auth/facebook
 * Method: GET
 */
+
+/*********************************************************************************
+* Web service: Get external games from our robot
+* URI: /api/externalgames
+* Method: GET
+*/
 ```

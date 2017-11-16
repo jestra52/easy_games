@@ -18,7 +18,7 @@ apiRouter.get('/', (req, res) => {
 // Middlewares to verify user
 apiRouter.all('/user/read', (req, res, next) => {
     if (!req.user) {
-        return res.status(400).send('Unauthorized');
+        return res.status(401).send('Unauthorized');
     }
 
     next();
@@ -26,7 +26,7 @@ apiRouter.all('/user/read', (req, res, next) => {
 
 apiRouter.all('/user/update', (req, res, next) => {
     if (!req.user) {
-        return res.status(400).send('Unauthorized');
+        return res.status(401).send('Unauthorized');
     }
 
     next();
@@ -34,7 +34,7 @@ apiRouter.all('/user/update', (req, res, next) => {
 
 apiRouter.all('/user/delete', (req, res, next) => {
     if (!req.user) {
-        return res.status(400).send('Unauthorized');
+        return res.status(401).send('Unauthorized');
     }
 
     next();
@@ -56,5 +56,6 @@ apiRouter.post('/game/create', gameController.saveGame);
 apiRouter.get('/game/:gameID', gameController.getGame);
 apiRouter.put('/game/update/:gameID', gameController.updateGame);
 apiRouter.delete('/game/delete/:gameID', gameController.deleteGame);
+apiRouter.get('/externalgames', gameController.externalgames);
 
 module.exports = apiRouter;

@@ -17,6 +17,7 @@
     },
     "homepage": "https://github.com/jestra52/easy_games#readme",
     "dependencies": {
+        "axios": "^0.17.1",
         "body-parser": "^1.18.2",
         "cookie-parser": "^1.4.3",
         "ejs": "^2.5.7",
