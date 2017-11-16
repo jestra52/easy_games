@@ -113,24 +113,27 @@ module.exports = {
         res.header("Access-Control-Allow-Origin", "*");
 
         services.dexiiogames((data) => {
-            if (data == undefined) res.status(200).send({
-                message: 'There is no data to show'
-            });
-
-            var cleanData = [];
-
-            for (var i = 0; i < data.length; i++) {
-                var result = {
-                    name: data[i][0],
-                    image: data[i][1],
-                    link: 'https://www.g2a.com' + data[i][2],
-                    price: data[i][3]
-                };
-
-                cleanData.push(result);
+            if (data == undefined) {
+                res.status(200).send({
+                    message: 'There is no data to show'
+                });
             }
-
-            res.send(cleanData);
+            else {
+                var cleanData = [];
+                
+                for (var i = 0; i < data.length; i++) {
+                    var result = {
+                        name: data[i][0],
+                        image: data[i][1],
+                        link: 'https://www.g2a.com' + data[i][2],
+                        price: data[i][3]
+                    };
+    
+                    cleanData.push(result);
+                }
+    
+                res.send(cleanData);
+            }
         });
     }
 
