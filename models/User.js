@@ -11,6 +11,11 @@ var UserSchema = new mongoose.Schema({
     birth: Date,
     gender: String,
     steamProfile: Object,
+    wishList: [{
+        _id: false,
+        name: String,
+        link: String
+    }],
     googleProfile: {
         googleid: String,
         token: String,

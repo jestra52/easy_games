@@ -32,12 +32,16 @@ module.exports = {
                 date.setMinutes(date.getMinutes() - offset);
         
                 // Setting schema attributes
-                var protomatch = /^(https?|ftp):\/\//; 
+                var protomatch   = /^(https?|ftp):\/\//; 
                 var steamProfile = req.body.steamProfile;
-                var cleanUrl = steamProfile.replace(protomatch, '');
-                var steamID = cleanUrl.split('/')[2];
+                var cleanUrl     = steamProfile.replace(protomatch, '');
+                var steamID      = cleanUrl.split('/')[2];
+                var wishList     = req.body.wishList;
 
-                services.steamProfile(steamKey, steamID, (steamProfileData) => {
+                services.steamProfile(steamKey, steamID, (  steamProfileData) => {
+                    for (var i = 0; i < wishList.length; i++) {
+                        userToCreate.wishList.push(wishList[i]);
+                    }
                     userToCreate.username     = req.body.username;
                     userToCreate.email        = req.body.email;
                     userToCreate.password     = req.body.password;
@@ -51,15 +55,20 @@ module.exports = {
                     // Saving new schema in MongoDB
                     userToCreate.save((err, userStored) => {
                         if (err) return res.status(500).send({
+                            success: false,
                             message: 'Error creating user: ' + err
                         });
 
                         req.login(userStored, (errL) => {
                             if (errL) return res.status(500).send({
+                                success: false,
                                 message: 'Error login new user: ' + errL
                             });
 
-                            return res.status(200).send({ userStored: userStored });
+                            return res.status(200).send({
+                                success: true, 
+                                userStored: userStored
+                            });
                         });
                     });
                 });
@@ -125,25 +134,53 @@ module.exports = {
             var cleanUrl     = steamProfile.replace(protomatch, '');
             steamID          = cleanUrl.split('/')[2];
         }
-        
+
+        if (dataToUpdate.wishList) {
+            User.findById(userID, (err, userData) => {
+                if (err) {
+                    return res.status(500).send({
+                        success: false,
+                        message: 'Error updating user: ' + err
+                    });
+                }
+    
+                if (!userData) {
+                    return res.status(400).send({
+                        success: false,
+                        message: 'The user does not exist'
+                    });
+                }
+
+                for (var i = 0; i < dataToUpdate.wishList.length; i++) {
+                    userData.wishList.push(dataToUpdate.wishList[i]);
+                }
+
+                dataToUpdate.wishList = userData.wishList;
+            });
+        }
+
         services.steamProfile(steamKey, steamID, (steamProfileData) => {
             dataToUpdate.steamProfile = steamProfileData;
             dataToUpdate.updatedAt    = date.toISOString();
-            
+                     
             User.findByIdAndUpdate(userID, dataToUpdate, (err, userUpdated) => {
                 if (err) {
                     return res.status(500).send({
+                        success: false,
                         message: 'Error updating user: ' + err
                     });
                 }
     
                 if (!userUpdated) {
                     return res.status(400).send({
+                        success: false,
                         message: 'The user does not exist'
                     });
                 }
     
-                return res.status(200).send({ userUpdated: {id: userUpdated._id, params_updated: dataToUpdate} });
+                return res.status(200).send({ 
+                    success: true,
+                    userUpdated: {id: userUpdated._id, params_updated: dataToUpdate} });
             });
         });
     },
@@ -162,12 +199,14 @@ module.exports = {
         User.findById(userID, (err, userToDelete) => {
             if (err) {
                 return res.status(500).send({
+                    success: false,
                     message: 'Error removing user: ' + err
                 });
             } 
 
             if (!userToDelete) {
                 return res.status(400).send({
+                    success: false,
                     message: 'The user does not exist'
                 });
             }
@@ -176,6 +215,7 @@ module.exports = {
             userToDelete.remove((errD) => {
                 if (errD) {
                     return res.status(500).send({
+                        success: false,
                         message: 'Error removing user: ' + errD
                     });
                 } 
@@ -183,11 +223,13 @@ module.exports = {
                 req.session.destroy((errS) => {
                     if (errS) {
                         return res.status(500).send({
+                            success: false,
                             message: 'Error destroying user session: ' + errS
                         });
                     }
 
                     return res.status(200).send({
+                        success: true,
                         message: 'The user has been deleted',
                         userToDelete: userToDelete
                     });
