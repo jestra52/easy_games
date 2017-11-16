@@ -12,44 +12,54 @@ module.exports = {
      * Method: POST
      */
     create: (req, res) => {
-        // Creating schema
-        var userToCreate  = new User();
-
-        // Setting actual time
-        var date   = new Date();
-        var offset = date.getTimezoneOffset();
-        date.setMinutes(date.getMinutes() - offset);
-
-        // Setting schema attributes
-        var steamID = req.body.steamID;     
-
-        services.steamProfile(steamKey, steamID, (steamProfileData) => {
-            userToCreate.username     = req.body.username;
-            userToCreate.email        = req.body.email;
-            userToCreate.password     = req.body.password;
-            userToCreate.firstName    = req.body.firstName;
-            userToCreate.lastName     = req.body.lastName;
-            userToCreate.birth        = new Date(req.body.birth).toISOString();
-            userToCreate.gender       = req.body.gender;
-            userToCreate.steamProfile = steamProfileData;
-            userToCreate.createdAt    = date.toISOString();
-            userToCreate.updatedAt    = date.toISOString();
-
-            // Saving new schema in MongoDB
-            userToCreate.save((err, userStored) => {
-                if (err) return res.status(500).send({
-                    message: 'Error creating user: ' + err
+        User.findOne({username: req.body.username}, (errF, userFound) => {
+            if (errF)
+                throw errF;
+            if (userFound) {
+                return res.status(409).send({
+                    message: 'Username ' + userFound.username + ' is already created'
                 });
+            }
+            else {
+                // Creating schema
+                var userToCreate  = new User();
+        
+                // Setting actual time
+                var date   = new Date();
+                var offset = date.getTimezoneOffset();
+                date.setMinutes(date.getMinutes() - offset);
+        
+                // Setting schema attributes
+                var steamID = req.body.steamID;     
 
-                req.login(userStored, (errL) => {
-                    if (errL) return res.status(500).send({
-                        message: 'Error login new user: ' + errL
+                services.steamProfile(steamKey, steamID, (steamProfileData) => {
+                    userToCreate.username     = req.body.username;
+                    userToCreate.email        = req.body.email;
+                    userToCreate.password     = req.body.password;
+                    userToCreate.firstName    = req.body.firstName;
+                    userToCreate.lastName     = req.body.lastName;
+                    userToCreate.birth        = new Date(req.body.birth).toISOString();
+                    userToCreate.gender       = req.body.gender;
+                    userToCreate.steamProfile = steamProfileData;
+                    userToCreate.createdAt    = date.toISOString();
+                    userToCreate.updatedAt    = date.toISOString();
+                    // Saving new schema in MongoDB
+                    userToCreate.save((err, userStored) => {
+                        if (err) return res.status(500).send({
+                            message: 'Error creating user: ' + err
+                        });
+
+                        req.login(userStored, (errL) => {
+                            if (errL) return res.status(500).send({
+                                message: 'Error login new user: ' + errL
+                            });
+
+                            return res.status(200).send({ userStored: userStored });
+                        });
                     });
-
-                    return res.status(200).send({ userStored: userStored });
                 });
-            });
-        });        
+            }
+        });    
     },
 
     /*********************************************************************************

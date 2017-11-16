@@ -3,7 +3,6 @@ nodemon = require('gulp-nodemon'),
 plumber = require('gulp-plumber'),
 livereload = require('gulp-livereload');
 
-
 gulp.task('develop', function () {
     livereload.listen();
     nodemon({

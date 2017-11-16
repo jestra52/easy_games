@@ -20,6 +20,13 @@ var UserSchema = new mongoose.Schema({
         profileurl: String,
         language: String
     },
+    facebookProfile: {
+        fbid: String,
+        token: String,
+        name: String,
+        gender: String,
+        profileurl: String
+    },
     createdAt: Date,
     updatedAt: Date
 });

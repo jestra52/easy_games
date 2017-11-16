@@ -17,6 +17,7 @@ const config = require('./config/config');
 // Routes requires
 const apiRoutes  = require('./routes/apiRoutes');
 const authRoutes = require('./routes/authRoutes');
+const viewRoutes = require('./routes/viewRoutes');
 
 /*********************************************************************************
  * APP CONFIGURATION
@@ -33,13 +34,14 @@ app.use(session({
     proxy: true
 }));
 app.use(express.static(config.rootPath + '/public'));
-app.set('views', config.rootPath + '/views');
+app.set('views', __dirname + '/views/');
 app.set('view engine', 'ejs');
 require('./config/passport')(app);
 
 // Routes conf
 app.use(config.baseURL + 'api', apiRoutes);
 app.use(config.baseURL + 'auth', authRoutes);
+app.use(config.baseURL, viewRoutes);
 
 /*********************************************************************************
  * DATABASE CONFIGURATION
@@ -63,6 +65,16 @@ mongoose.connect(config.db, { useMongoClient: true }, (err, res) => {
 /*********************************************************************************
  * APP SERVER CONFIGURATION
  */
-app.listen(config.port, () => {
-    console.log('App running on http://' + config.ip + ':' + config.port + '');
-}); 
+var appServer = app.listen(config.port, () => {
+    console.log('App server running on http://' + config.ip + ':' + config.port + '');
+});
+
+process.on('SIGINT', () => {
+    setTimeout(() => {
+        appServer.close(() => {
+            console.log('App server is stopping...');
+            mongoose.connection.close();
+            process.exit(0);
+        });
+    }, 500);
+});

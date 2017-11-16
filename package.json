@@ -17,6 +17,7 @@
     },
     "homepage": "https://github.com/jestra52/easy_games#readme",
     "dependencies": {
+        "axios": "^0.17.1",
         "body-parser": "^1.18.2",
         "cookie-parser": "^1.4.3",
         "ejs": "^2.5.7",
@@ -31,6 +32,7 @@
         "nodemon": "^1.12.1",
         "normalize-path": "^2.1.1",
         "passport": "^0.4.0",
+        "passport-facebook": "^2.1.1",
         "passport-google-oauth2": "^0.1.6",
         "passport-local": "^1.0.0",
         "request": "^2.83.0"
