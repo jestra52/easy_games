@@ -38,9 +38,11 @@ module.exports = {
                 var steamID      = cleanUrl.split('/')[2];
                 var wishList     = req.body.wishList;
 
-                services.steamProfile(steamKey, steamID, (  steamProfileData) => {
-                    for (var i = 0; i < wishList.length; i++) {
-                        userToCreate.wishList.push(wishList[i]);
+                services.steamProfile(steamKey, steamID, (steamProfileData) => {
+                    if (wishList) {
+                        for (var i = 0; i < wishList.length; i++) {
+                            userToCreate.wishList.push(wishList[i]);
+                        }
                     }
                     userToCreate.username     = req.body.username;
                     userToCreate.email        = req.body.email;
