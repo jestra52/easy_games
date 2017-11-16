@@ -111,9 +111,9 @@ module.exports = {
      */
     externalgames: (req, res) => {
         res.header("Access-Control-Allow-Origin", "*");
-        
+
         services.dexiiogames((data) => {
-            if (data == undefined) res.status(404).send({
+            if (data == undefined) res.status(200).send({
                 message: 'There is no data to show'
             });
 
