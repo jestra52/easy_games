@@ -128,13 +128,13 @@ Test example:
 */
 
 /*********************************************************************************
-* Web service: Loads signup view
+* Web service: Loads games view
 * URI: /games
 * Method: GET
 */
 
 /*********************************************************************************
-* Web service: Loads signup view
+* Web service: Loads sign in view
 * URI: /signin
 * Method: GET
 */
