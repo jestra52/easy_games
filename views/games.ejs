@@ -1,0 +1,10 @@
+<h1>Games</h1>
+
+<% for (var i = 0; i < data.length; i++) { %>
+    <div>
+        <p>Name: <%= data[i].name %></p>
+        <img src="<%= data[i].image %>" alt="">
+        <p>Link: <%= data[i].link %></p>
+        <p>Data: <%= data[i].price %></p>
+    </div>
+<% } %>
