@@ -11,6 +11,16 @@ Made with Node.js, Vue.js, Express.js and MongoDB.
 * URI: /api/user/create
 * Method: POST
 */
+Test example:
+{
+  "username": "yourUsername",
+  "email": "your@email.com",
+  "password": "yourPassword",
+  "firstName": "Your first name",
+  "lastName": "Your last name",
+  "birth": "mm/dd/yyyy",
+  "steamProfile": "http://your/steam/profile/URL"
+}
  
 /*********************************************************************************
 * Web service: Get the data of the current user (actual session)
@@ -23,6 +33,17 @@ Made with Node.js, Vue.js, Express.js and MongoDB.
 * URI: /api/user/update
 * Method: PUT
 */
+Test example:
+{
+  "lastName": "Last name to update",
+  "steamProfile": "http://your/steam/profile/URL/",
+  "wishList": [
+    {
+      "name": "Hello2",
+      "link": "to/image/hello1"
+    }
+  ]
+}
 
 /*********************************************************************************
 * Web service: Delete the current user (actual session)
@@ -35,6 +56,13 @@ Made with Node.js, Vue.js, Express.js and MongoDB.
 * URI: /api/game
 * Method: POST
 */
+Test example:
+{
+  "name": "Game name",
+  "picture": "http://path/to/picture",
+  "price": 35.5,
+  "link": "http://link/to/picture"
+}
 
 /*********************************************************************************
 * Web service: Get game by its ID
@@ -47,6 +75,10 @@ Made with Node.js, Vue.js, Express.js and MongoDB.
 * URI: /api/game/update/:gameID
 * Method: PUT
 */
+Test example:
+{
+  "price": 20.3
+}
 
 /*********************************************************************************
 * Web service: Delete game by its ID
@@ -59,6 +91,11 @@ Made with Node.js, Vue.js, Express.js and MongoDB.
 * URI: /auth/login
 * Method: POST
 */
+Test example:
+{
+  "username": "yourUsername",
+  "password": "yourPassword"
+}
 
 /*********************************************************************************
 * Web service: Log out of the current session

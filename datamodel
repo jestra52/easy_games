@@ -41,15 +41,15 @@ Game
     description: String (may be given by an API),
     gender: [ 
         {
-            id: Gender.id,
-            name: Gender.name
+            id: GameGender.id,
+            name: GameGender.name
         }
     ],
     info: <Info about game given by an API, like price for example>
 }
 ##############
 
-Gender
+GameGender
 {
     id: ObjectID,
     gamesIn: [ Game.id ]
