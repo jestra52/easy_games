@@ -120,4 +120,22 @@ Test example:
 * URI: /api/externalgames
 * Method: GET
 */
+
+/*********************************************************************************
+* Web service: Loads signup view
+* URI: /signup
+* Method: GET
+*/
+
+/*********************************************************************************
+* Web service: Loads signup view
+* URI: /games
+* Method: GET
+*/
+
+/*********************************************************************************
+* Web service: Loads signup view
+* URI: /signin
+* Method: GET
+*/
 ```
