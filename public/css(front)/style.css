@@ -2480,3 +2480,7 @@ fieldset {
   transform: translate(0, 0);
   transition-duration: .5s;
 }
+.loginBottons {
+ padding-top: 1cm;
+ padding-left: 2cm;
+}

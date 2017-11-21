@@ -2,19 +2,6 @@
 
 <h1><%= title %></h1>
 
-<div class="container">
-    <form action="/auth/login" method="post">
-        <input type="text" name="username" placeholder="Nombre de usuario">
-        <input type="password" name="password" placeholder="Contraseña">
-        <input type="submit" name="enter" value="Hecho">
-    </form>
-
-    <a href="/auth/google" class="btn btn-danger col-md-3"><span class="fa fa-google-plus"></span></a>
-    <div class="col-md-2"></div>
-    <a href="/auth/facebook" class="btn btn-primary col-md-3"><span class="fa fa-facebook"></span></a>
-</div>
-
-
 <div class="loginForm">
       <div class="login__container">
          <div class="login__top">
@@ -25,12 +12,13 @@
               <input type="text" name="username" placeholder="&#128100; Usuario" required autofocus>
               <input type="password" name="password" placeholder="&#x1F512; Contraseña" required>
               <input class="btn__suname="username" bmit" type="submit" value="Ingresar">
-              <a class="form__recover" href="">Olvidaste la contraseña?</a>
           </form>
+          <div class="loginBottons">
+            <a href="/auth/google" class="btn btn-danger col-md-3"><span class="fa fa-google-plus"></span></a>
+            <div class="col-md-2"></div>
+            <a href="/auth/facebook" class="btn btn-primary col-md-3"><span class="fa fa-facebook"></span></a>
+          </div>
       </div>
-      <a href="/auth/google" class="btn btn-danger col-md-3"><span class="fa fa-google-plus"></span></a>
-      <div class="col-md-2"></div>
-      <a href="/auth/facebook" class="btn btn-primary col-md-3"><span class="fa fa-facebook"></span></a>
     </div>
 
 <% include footer %>
