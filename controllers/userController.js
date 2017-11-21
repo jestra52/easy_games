@@ -250,9 +250,10 @@ module.exports = {
                     });
                 }
     
-                return res.status(200).send({ 
+                /*return res.status(200).send({ 
                     success: true,
-                    userUpdated: {id: userUpdated._id, params_updated: dataToUpdate} });
+                    userUpdated: {id: userUpdated._id, params_updated: dataToUpdate} });*/
+                return res.status(200).redirect('/api/user/read');
             });
         });
     },
