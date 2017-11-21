@@ -1,6 +1,8 @@
 'use strict';
 
-const mongoose = require('mongoose');
+const mongoose   = require('mongoose');
+const GameSchema = require('./Game');
+const Game       = new GameSchema().schema;
 
 var UserSchema = new mongoose.Schema({
     username: String,
@@ -11,11 +13,7 @@ var UserSchema = new mongoose.Schema({
     birth: Date,
     gender: String,
     steamProfile: Object,
-    wishList: [{
-        _id: false,
-        name: String,
-        link: String
-    }],
+    wishList: [ Game ],
     googleProfile: {
         googleid: String,
         token: String,

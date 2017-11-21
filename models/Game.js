@@ -3,6 +3,7 @@
 const mongoose = require('mongoose');
 
 var GameSchema = new mongoose.Schema({
+    userOwner: String,
     name: String,
     picture: String,
     price: {

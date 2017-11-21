@@ -29,10 +29,7 @@ module.exports = {
         res.header("Access-Control-Allow-Origin", "*");
 
         req.session.destroy(() => {
-            res.status(200).send({
-                session_closed: true,
-                logoutStatus: 'successful'
-            });
+            res.status(200).redirect('/');
         });
     },
     

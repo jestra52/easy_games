@@ -2462,8 +2462,12 @@ fieldset {
   font-size: 1em;
   width: 50px;
   border: none;
+<<<<<<< HEAD
   background: #333;
   transform: translate(-50px, 0);
+=======
+  background: #777;
+>>>>>>> dev
 }
 .fa-search {
   color: #bbb;
@@ -2482,4 +2486,8 @@ fieldset {
 .loginBottons {
  padding-top: 1cm;
  padding-left: 2cm;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> dev
