@@ -32,11 +32,14 @@ module.exports = {
                 date.setMinutes(date.getMinutes() - offset);
         
                 // Setting schema attributes
-                var protomatch   = /^(https?|ftp):\/\//; 
-                var steamProfile = req.body.steamProfile;
-                var cleanUrl     = steamProfile.replace(protomatch, '');
-                var steamID      = cleanUrl.split('/')[2];
-                var wishList     = req.body.wishList;
+                var steamID = "";
+                var wishList = req.body.wishList;
+                if (userToCreate.steamProfile) {
+                    var protomatch   = /^(https?|ftp):\/\//; 
+                    var steamProfile = req.body.steamProfile;
+                    var cleanUrl     = steamProfile.replace(protomatch, '');
+                    steamID          = cleanUrl.split('/')[2];
+                }
 
                 services.steamProfile(steamKey, steamID, (steamProfileData) => {
                     if (wishList) {

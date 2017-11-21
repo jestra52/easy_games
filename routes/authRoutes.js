@@ -31,7 +31,8 @@ authRouter.all('/logout', (req, res, next) => {
  * AUTH ROUTES
  */
 // Local auth
-authRouter.post('/login', passport.authenticate('local', { 
+authRouter.post('/login', passport.authenticate('local', {
+    successRedirect: '/', 
     failureRedirect: '/auth/failure' 
 }), authController.login);
 authRouter.get('/failure', authController.failure);

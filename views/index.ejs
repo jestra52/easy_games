@@ -1,5 +1,31 @@
 <% include header %>
 
+<!-- Incluir esto siempre en todos los views -->
 <h1><%= title %></h1>
+
+<% if (userAuthenticated) { %>
+    <h3>Bienvenido <%= userAuthenticated.firstName %></h3>
+    <a href="/api/user/read" class="btn btn-primary col-md-3">Información de usuario</a>
+    <a href="/auth/logout" class="btn btn-primary col-md-3">Cerrar sesión</a>
+<% } else { %>
+    <h3>Bienvenido</h3>
+    <a href="/signin" class="btn btn-primary col-md-3">Iniciar sesión</a>
+    <a href="/signup" class="btn btn-primary col-md-3">Registrarse</a>
+<% } %>
+
+<!-- -->
+
+<h3>Juegos</h3>
+
+<% for (var i = 0; i < data.length; i++) { %>
+    <form action="/api/user/update" method="put">
+        <p>Name: <%= data[i].name %></p>
+        <img src="<%= data[i].image %>" alt="">
+        <p>Link: <%= data[i].link %></p>
+        <p>Data: <%= data[i].price %></p>
+        <input type="hidden" name="username" value="jestra53">
+        <input type="submit" value="Agregar a favorito">
+    </form>
+<% } %>
 
 <% include footer %>

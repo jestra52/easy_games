@@ -4,10 +4,34 @@
 
     <h1><%= title %></h1>
 
+    <form action="/api/user/create" method="POST">
+        <label for="username">Nombre de usuario</label>
+        <input id="username" type="text" name="username" placeholder="Nombre de usuario" required><br>
+
+        <label for="email">Correo electrónico</label>
+        <input id="email" type="email" name="email" placeholder="E-mail" required><br>
+
+        <label for="password">Contraseña</label>
+        <input id="password" type="password" name="password" placeholder="Contraseña" required><br>
+
+        <label for="firstName">Nombres</label>
+        <input id="firstName" type="text" name="firstName" placeholder="Nombres" required><br>
+
+        <label for="lastName">Apellidos</label>
+        <input id="lastName" type="text" name="lastName" placeholder="Apellidos" required><br>
+
+        <label for="birth">Fecha de nacimiento</label>
+        <input id="birth" type="date" name="birth" required><br>
+
+        <input id="" type="submit" value="Hecho">
+    </form>
+
     <div class="form-group row">
         <a href="/auth/google" class="btn btn-danger col-md-3"><span class="fa fa-google-plus"></span></a>
         <div class="col-md-2"></div>
         <a href="/auth/facebook" class="btn btn-primary col-md-3"><span class="fa fa-facebook"></span></a>
+        <div class="col-md-2"></div>
+        <a href="/" class="btn btn-primary col-md-3">Volver</a>
     </div>
         
     </div>
