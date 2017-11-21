@@ -86,6 +86,11 @@ module.exports = {
         });    
     },
 
+    /*********************************************************************************
+     * Web service: Create a new fav game por user
+     * URI: /api/user/addFavGame
+     * Method: POST
+     */
     createNewFavGame: (req, res) => {
 
         // Setting actual time
@@ -250,9 +255,10 @@ module.exports = {
                     });
                 }
     
-                return res.status(200).send({ 
+                /*return res.status(200).send({ 
                     success: true,
-                    userUpdated: {id: userUpdated._id, params_updated: dataToUpdate} });
+                    userUpdated: {id: userUpdated._id, params_updated: dataToUpdate} });*/
+                return res.status(200).redirect('/api/user/read');
             });
         });
     },
