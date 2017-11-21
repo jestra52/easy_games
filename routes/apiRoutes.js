@@ -58,7 +58,7 @@ apiRouter.all('/user/delete', (req, res, next) => {
  */
 apiRouter.post('/user/create', userController.create);
 apiRouter.get('/user/read', userController.read);
-apiRouter.put('/user/update', userController.update);
+apiRouter.post('/user/update', userController.update);
 apiRouter.delete('/user/delete', userController.delete);
 
 /*********************************************************************************

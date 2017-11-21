@@ -1,52 +1,51 @@
 <% include header %>
 
-<div class="container alfrente">
-    <header class="navbar navbar-inverse navbar-fixed-top " role="banner">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <i class="fa fa-bars"></i>
-                </button>
-                    <a class="navbar-brand" href="/"><h1><span class="pe-7s-gleam bounce-in"></span>Easy Games</h1></a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/">Pagina de incio</a></li>
-                    <li><a href="/signin">Inicia sesion</a></li>
-                    <li><a href="/signup">Registrate</a></li>
-                </ul>
-            </div>
-            </div>
+<header class="navbar navbar-inverse navbar-fixed-top" role="banner">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <i class="fa fa-bars"></i>
+            </button>
+                <a class="navbar-brand" href="/"><h1><span class="pe-7s-gleam bounce-in"></span>Easy Games</h1></a>
         </div>
-    </header><!--/header-->
-          
-    <form action="/api/user/create" method="POST">
-        <label for="username">Nombre de usuario</label>
-        <input id="username" type="text" name="username" placeholder="Nombre de usuario" required><br>
+        <div class="collapse navbar-collapse">
+            <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/">Pagina de incio</a></li>
+                <li><a href="/signin">Inicia sesion</a></li>
+                <li><a href="/signup">Registrate</a></li>
+            </ul>
+        </div>
+        </div>
+    </div>
+</header><!--/header-->
 
-        <label for="email">Correo electrónico</label>
-        <input id="email" type="email" name="email" placeholder="E-mail" required><br>
+<h1><%= title %></h1>
 
-        <label for="password">Contraseña</label>
-        <input id="password" type="password" name="password" placeholder="Contraseña" required><br>
-
-        <label for="firstName">Nombres</label>
-        <input id="firstName" type="text" name="firstName" placeholder="Nombres" required><br>
-
-        <label for="lastName">Apellidos</label>
-        <input id="lastName" type="text" name="lastName" placeholder="Apellidos" required><br>
-
-        <label for="birth">Fecha de nacimiento</label>
-        <input id="birth" type="date" name="birth" required><br>
-
-        <input id="" type="submit" value="Hecho">
-
-        <a href="/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span></a>
-        <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span></a>
-        <a href="/" class="btn btn-primary">Volver</a>
-    </form>
+<div class="loginForm">
+      <div class="login__container">
+         <div class="login__top">
+            <img  class="login__img" src="./img/pokemoneda.png" alt="">
+            <h2 class="login__title"><span>Registrate</span></h2>
+         </div>
+         <form class="login__form" action="/api/user/create" method="post">
+              <input name="username" type="text" placeholder="&#128100; Usuario" required autofocus>
+              <input name="email" type="email" placeholder="&#128100; Correo" required autofocus>
+              <input name="password" type="password" placeholder="&#x1F512; Contraseña" required>
+              <input name="firstName" type="text" placeholder="&#128100; Nombres" required autofocus>
+              <input name="lastName" type="text" placeholder="&#128100; Apellidos" required autofocus>
+              <input name="birth" type="date" placeholder="&#128100; Fecha de nacimiento" required autofocus>
+              <input class="btn__submit" type="submit" value="Registrarse">
+          </form>
+          <div class="loginBottons">
+          <div class="form-group row">
+              <a href="/auth/google" class="btn btn-danger col-md-3"><span class="fa fa-google-plus"></span></a>
+              <div class="col-md-2"></div>
+              <a href="/auth/facebook" class="btn btn-primary col-md-3"><span class="fa fa-facebook"></span></a>
+          </div>
+          </div>
+      </div>
 </div>
-
+    
 <% include footer %>

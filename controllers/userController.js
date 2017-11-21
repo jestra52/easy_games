@@ -19,6 +19,8 @@ module.exports = {
                 throw errF;
             if (userFound) {
                 return res.status(409).send({
+                    error: true,
+                    title: 'Registrate',
                     message: 'Username ' + userFound.username + ' is already created'
                 });
             }
@@ -70,10 +72,12 @@ module.exports = {
                                 message: 'Error login new user: ' + errL
                             });
 
-                            return res.status(200).send({
+                            /*return res.status(200).send({
                                 success: true, 
                                 userStored: userStored
-                            });
+                            });*/
+
+                            return res.status(200).redirect('/');
                         });
                     });
                 });
@@ -87,7 +91,11 @@ module.exports = {
      * Method: GET
      */
     read: (req, res) => {
-        res.header("Access-Control-Allow-Origin", "*");
+        //res.header("Access-Control-Allow-Origin", "*");
+
+        var userAuthenticated = null;
+        
+        if (req.user) userAuthenticated = req.user;
 
         // User from passport session
         var userID = req.user._id; 
@@ -105,7 +113,21 @@ module.exports = {
                 });
             }
 
-            return res.status(200).send(userData);
+            console.log(Object.keys(userData.googleProfile).length);
+
+            console.log(userData);
+
+            var date = new Date(userData.birth);
+            var year = date.getFullYear();
+            var month = date.getMonth()+1;
+            var dt = date.getDate();
+
+            return res.status(200).render('userinfo', {
+                title: 'Información',
+                userAuthenticated: userAuthenticated,
+                userData: userData,
+                birth: year + '-' + month + '-' + dt
+            });
         });
     },
 

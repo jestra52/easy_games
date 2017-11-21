@@ -1,6 +1,4 @@
 <% include header %>
-
-<div class="alfrente">
     <!-- Incluir esto siempre en todos los views -->
     <% if (userAuthenticated) { %>
         <header class="navbar navbar-inverse navbar-fixed-top " role="banner">
@@ -48,23 +46,97 @@
     <% } %>
     <!-- -->
 
-    <table>
-        <tr>
-            <th>Imagen</th>
-            <th>Nombre</th>
-            <th>Fuente</th>
-            <th>Precio</th>
-        </tr>
+    <section id="main-slider" class="no-margin">
+            <div class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="carousel-content center centered">
+                                        <span class="home-icon pe-7s-gleam bounce-in"></span>
+                                        <h2 class="boxed animation animated-item-1 fade-down">¿Juegos? Easy Games</h2>
+                                          <br>
+                                          <div class="search_box">
+                                            <form class="boxed animation animated-item-2 fade-up" action="" method="post">
+                                              <fieldset>
+                                                <input class="input_search" type="Search" placeholder="Buscar juegos">
+                                                <button class="search_button" type="submit" name="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                              </fieldset>
+                                            </form>
+                                          </div>
+                                        <br>
+                                        <a class="btn btn-md animation bounce-in" href="#services">Juegos</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--/.item-->
+                </div><!--/.carousel-inner-->
+            </div><!--/.carousel-->
+    </section><!--/#main-slider-->
 
-        <% for (var i = 0; i < data.length; i++) { %>
-            <tr>
-                <td><img src="<%= data[i].image %>" alt=""></td>
-                <td><%= data[i].name %></td>
-                <td><%= data[i].price %></td>
-                <td><a href="<%= data[i].link %>">Ir al juego</a></td>
-            </tr>
-        <% } %>
-    </table>
-</div>
+    <div id="content-wrapper">
+            <section id="services" class="white">
+                <div class="container">
+                    <div class="gap"></div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="center gap fade-down section-heading">
+                                <h2 class="main-title">Juegos recientes</h2>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <% for (var i = 0; i < data.length; i++) { %>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="service-block">
+                                    <div class="pull-left bounce-in">
+                                        <img src="<%= data[i].image %>" alt="">
+                                    </div>
+                                    <div class="media-body fade-up">
+                                        <h3 class="media-heading"><%= data[i].name %></h3>
+                                        <p><%= data[i].price %></p>
+                                        <p><a href="<%= data[i].link %>">Ir al juego</a></p>
+                                    </div>
+                                </div>    
+                            </div><!--/.col-md-4-->
+                        <% } %>
+                    </div><!--/.row-->
+                </div>
+
+                <div class="gap"></div>
+            </section>
+        
+            <section id="single-quote" class="divider-section">
+                    <div class="container">
+                        <div class="gap"></div>
+                        <div class="row">
+                            <div class='col-md-offset-2 col-md-8 fade-up'>
+                                <div class="carousel slide" data-ride="carousel" id="quote-carousel">
+                                    <div class="carousel-inner">
+                                        <div class="item active">
+                                            <blockquote>
+                                                <div class="row">
+                                                    <div class="col-sm-3 text-center">
+                                                        <img class="img-responsive" src="/images(front)/team/Gabe.png" style="width: 100px;height:100px;">
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <p>Los programadores del mañana son los magos del futuro</p>
+                                                        <small>Gabe Newell</small>
+                                                    </div>
+                                                </div>
+                                            </blockquote>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="gap"></div>
+                      </div>
+              </section>
+    </div>
 
 <% include footer %>
