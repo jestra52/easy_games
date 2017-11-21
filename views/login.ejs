@@ -1,0 +1,45 @@
+<% include header %>
+
+<header class="navbar navbar-inverse navbar-fixed-top" role="banner">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <i class="fa fa-bars"></i>
+            </button>
+                <a class="navbar-brand" href="/"><h1><span class="pe-7s-gleam bounce-in"></span>Easy Games</h1></a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/">Pagina de incio</a></li>
+                <li><a href="/signin">Inicia sesion</a></li>
+                <li><a href="/signup">Registrate</a></li>
+            </ul>
+        </div>
+        </div>
+    </div>
+</header><!--/header-->
+
+<h1><%= title %></h1>
+
+<div class="loginForm">
+      <div class="login__container">
+         <div class="login__top">
+            <img  class="login__img" src="./img/pokemoneda.png" alt="">
+            <h2 class="login__title"><span>Inicia sesión</span></h2>
+         </div>
+         <form class="login__form" action="/auth/login" method="post">
+              <input type="text" name="username" placeholder="&#128100; Usuario" required autofocus>
+              <input type="password" name="password" placeholder="&#x1F512; Contraseña" required>
+              <input class="btn__submit" type="submit" value="Ingresar">
+          </form>
+          <div class="loginBottons">
+            <a href="/auth/google" class="btn btn-danger col-md-3"><span class="fa fa-google-plus"></span></a>
+            <div class="col-md-2"></div>
+            <a href="/auth/facebook" class="btn btn-primary col-md-3"><span class="fa fa-facebook"></span></a>
+          </div>
+      </div>
+</div>
+
+<% include footer %>

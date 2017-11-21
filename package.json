@@ -1,0 +1,40 @@
+{
+    "name": "jjpluresanime",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/jestra52/easy_games.git"
+    },
+    "author": "",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/jestra52/easy_games/issues"
+    },
+    "homepage": "https://github.com/jestra52/easy_games#readme",
+    "dependencies": {
+        "axios": "^0.17.1",
+        "body-parser": "^1.18.2",
+        "cookie-parser": "^1.4.3",
+        "ejs": "^2.5.7",
+        "express": "^4.16.1",
+        "express-session": "^1.15.6",
+        "gulp": "^3.9.1",
+        "gulp-livereload": "^3.8.0",
+        "gulp-nodemon": "^2.0.2",
+        "gulp-plumber": "^1.0.0",
+        "mongoose": "^4.11.14",
+        "morgan": "^1.9.0",
+        "nodemon": "^1.12.1",
+        "normalize-path": "^2.1.1",
+        "passport": "^0.4.0",
+        "passport-facebook": "^2.1.1",
+        "passport-google-oauth2": "^0.1.6",
+        "passport-local": "^1.0.0",
+        "request": "^2.83.0"
+    }
+}
