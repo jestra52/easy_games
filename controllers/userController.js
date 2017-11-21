@@ -86,6 +86,11 @@ module.exports = {
         });    
     },
 
+    /*********************************************************************************
+     * Web service: Create a new fav game por user
+     * URI: /api/user/addFavGame
+     * Method: POST
+     */
     createNewFavGame: (req, res) => {
 
         // Setting actual time

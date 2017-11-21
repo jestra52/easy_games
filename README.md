@@ -36,13 +36,7 @@ Test example:
 Test example:
 {
   "lastName": "Last name to update",
-  "steamProfile": "http://your/steam/profile/URL/",
-  "wishList": [
-    {
-      "name": "Hello2",
-      "link": "to/image/hello1"
-    }
-  ]
+  "steamProfile": "http://your/steam/profile/URL/"
 }
 
 /*********************************************************************************
@@ -50,19 +44,6 @@ Test example:
 * URI: /api/user/delete
 * Method: DELETE
 */
-
-/*********************************************************************************
-* Web service: Create a new game
-* URI: /api/game
-* Method: POST
-*/
-Test example:
-{
-  "name": "Game name",
-  "picture": "http://path/to/picture",
-  "price": 35.5,
-  "link": "http://link/to/picture"
-}
 
 /*********************************************************************************
 * Web service: Get game by its ID
@@ -138,4 +119,26 @@ Test example:
 * URI: /signin
 * Method: GET
 */
+
+/*********************************************************************************
+* Web service: Create a new fav game for user
+* URI: /api/user/addFavGame
+* Method: POST
+*/
+Test example:
+{
+  "name": "Game name",
+  "picture": "http://path/to/picture",
+  "price": 35.5,
+  "link": "http://link/to/picture"
+}
+
+*********************************************************************************
+* Web service: Delete fav game of the current user (actual session)
+* URI: /api/user/deleteFavGame
+* Method: POST
+*/
+{
+  gameid: "A mongo objectid stored in db"
+}
 ```
