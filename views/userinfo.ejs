@@ -97,8 +97,48 @@
                     <p>Ingrese URL de perfil de Steam<input style="width: 100%;" id="steamProfile" name="steamProfile" type="text"></p>
                 <% } %>
 
-                <input class="btn__suname="username" bmit" type="submit" value="Actualizar">
+                <input class="btn__submit" type="submit" value="Actualizar">
             </form>
+        </div>
+
+        <div class="gap"></div>
+    </section>
+
+    <section id="services" class="white">
+        <div class="container">
+            <div class="gap"></div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="center gap fade-down section-heading">
+                        <h3 class="media-heading"><span class="fa fa-gamepad"></span> Lista de deseos</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <% if (userData.wishList.length > 0) { %>
+                        <% for (var i = 0; i < userData.wishList.length; i++) { %>
+                            <div class="col-md-4 col-sm-6">
+                                <form action="/api/user/deleteFavGame" method="post">
+                                    <div class="service-block" style="height: 600px;">
+                                        <div class="pull-left bounce-in" style="width: 100%;">
+                                            <img src="<%= userData.wishList[i].picture %>" alt="">
+                                        </div><br>
+                                        <div class="media-body fade-up">
+                                            <h3 class="media-heading" style="height: 50px;"><%= userData.wishList[i].name %></h3>
+                                            <p><%= userData.wishList[i].price %></p>
+                                            <p><a href="<%= userData.wishList[i].link %>">Ir al juego</a></p>
+                                        </div>
+
+                                        <input type="hidden" name="gameid" value="<%= userData.wishList[i]._id %>">
+                                        <input class="btn btn-danger" type="submit" value="Eliminar de favoritos">
+                                    </div>    
+                                </form>
+                            </div><!--/.col-md-4-->
+                        <% } %>
+                <% } %>
+            </div><!--/.row-->
         </div>
 
         <div class="gap"></div>

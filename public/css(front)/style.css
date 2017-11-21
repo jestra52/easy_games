@@ -2462,8 +2462,7 @@ fieldset {
   font-size: 1em;
   width: 50px;
   border: none;
-  background: #333;
-  transform: translate(-50px, 0);
+  background: #777;
 }
 .fa-search {
   color: #bbb;

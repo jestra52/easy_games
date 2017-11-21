@@ -16,15 +16,18 @@ module.exports = {
         let game = new Game();
         game.name = req.body.name;
         game.picture = req.body.picture;
-        game.price = req.body.price;
+        game.price = parseFloat(req.body.price.replace(/[^0-9\.,]/g, ""));
+        console.log(game.price);
         game.link = req.body.link;
+
+        console.log(game);
       
         game.save(function(err, gameStored) {
-            if (err) res.status(500).send({
+            if (err) return res.status(500).send({
                 message: "Error saving game: " + err
             });
 
-            res.status(200).send({
+            return res.status(200).send({
                 game: gameStored
             });
         });

@@ -58,10 +58,10 @@
                                         <h2 class="boxed animation animated-item-1 fade-down">¿Juegos? Easy Games</h2>
                                           <br>
                                           <div class="search_box">
-                                            <form class="boxed animation animated-item-2 fade-up" action="" method="post">
+                                            <form class="boxed animation animated-item-2 fade-up" action="/searchGame" method="get">
                                               <fieldset>
-                                                <input class="input_search" type="Search" placeholder="Buscar juegos">
-                                                <button class="search_button" type="submit" name="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                                <input name="buscar" class="input_search" type="Search" placeholder="Buscar juegos">
+                                                <button class="search_button" type="submit" name="button"><span class="fa fa-search" aria-hidden="true"></span></button>
                                               </fieldset>
                                             </form>
                                           </div>
@@ -88,23 +88,52 @@
                             </div>
                         </div>
                     </div>
-    
-                    <div class="row">
-                        <% for (var i = 0; i < data.length; i++) { %>
-                            <div class="col-md-4 col-sm-6">
-                                <div class="service-block">
-                                    <div class="pull-left bounce-in">
-                                        <img src="<%= data[i].image %>" alt="">
-                                    </div>
-                                    <div class="media-body fade-up">
-                                        <h3 class="media-heading"><%= data[i].name %></h3>
-                                        <p><%= data[i].price %></p>
-                                        <p><a href="<%= data[i].link %>">Ir al juego</a></p>
-                                    </div>
-                                </div>    
-                            </div><!--/.col-md-4-->
-                        <% } %>
-                    </div><!--/.row-->
+                    
+                    <% if (userAuthenticated) { %>
+                        <div class="row">
+                            <% for (var i = 0; i < data.length; i++) { %>
+                                    <form class="container col-md-4 col-sm-6" action="/api/user/addFavGame" method="post">
+                                        <div style="height: 600px;" class="service-block">
+                                            <div style="width: 100%;" class="pull-left bounce-in">
+                                                <img src="<%= data[i].image %>" alt="">
+                                            </div>
+                                            <div class="media-body fade-up">
+                                                <div style="height: 50px;" class="media-heading">
+                                                    <h3><%= data[i].name %></g3>
+                                                </div><br>  
+                                                <p><%= data[i].price %></p>
+                                                <p><a href="<%= data[i].link %>">Ir al juego</a></p>
+
+                                                <input type="hidden" name="name" value="<%= data[i].name %>">
+                                                <input type="hidden" name="picture" value="<%= data[i].image %>">
+                                                <input type="hidden" name="price" value="<%= data[i].price %>">
+                                                <input type="hidden" name="link" value="$<%= data[i].link %>">
+                                                <input style="width: 100%;" class="btn__submit" type="submit" value="Añadir a favoritos">
+                                            </div>
+                                        </div>    
+                                    </form> <!--/.col-md-4-->
+                            <% } %>
+                        </div><!--/.row-->
+                    <% } else { %>
+                        <div class="row">
+                            <% for (var i = 0; i < data.length; i++) { %>
+                                <div class="container col-md-4 col-sm-6">
+                                    <div style="height: 600px;" class="service-block">
+                                        <div style="width: 100%;" class="pull-left bounce-in">
+                                            <img src="<%= data[i].image %>" alt="">
+                                        </div>
+                                        <div class="media-body fade-up">
+                                            <div style="height: 50px;" class="media-heading">
+                                                <h3><%= data[i].name %></g3>
+                                            </div><br>  
+                                            <p><%= data[i].price %></p>
+                                            <p><a href="<%= data[i].link %>">Ir al juego</a></p>
+                                        </div>
+                                    </div>    
+                                </div> <!--/.col-md-4-->
+                            <% } %>
+                        </div><!--/.row-->
+                    <% } %>
                 </div>
 
                 <div class="gap"></div>

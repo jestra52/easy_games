@@ -51,6 +51,32 @@ apiRouter.all('/user/delete', (req, res, next) => {
 
     next();
 });
+
+// Middlewares to verify user
+apiRouter.all('/user/addFavGame', (req, res, next) => {
+    if (!req.user) {
+        return res.status(401).send({
+            status: 401,
+            authorized: false,
+            message: 'Unauthorized'
+        });
+    }
+
+    next();
+});
+
+// Middlewares to verify user
+apiRouter.all('/user/deleteFavGame', (req, res, next) => {
+    if (!req.user) {
+        return res.status(401).send({
+            status: 401,
+            authorized: false,
+            message: 'Unauthorized'
+        });
+    }
+
+    next();
+});
 //
 
 /*********************************************************************************
@@ -60,6 +86,8 @@ apiRouter.post('/user/create', userController.create);
 apiRouter.get('/user/read', userController.read);
 apiRouter.post('/user/update', userController.update);
 apiRouter.delete('/user/delete', userController.delete);
+apiRouter.post('/user/addFavGame', userController.createNewFavGame);
+apiRouter.post('/user/deleteFavGame', userController.deleteFavGame);
 
 /*********************************************************************************
  * GAME ROUTES

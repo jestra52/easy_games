@@ -1,6 +1,7 @@
 'use strict';
 
 const User     = require('../models/User');
+const Game     = require('../models/Game');
 const services = require('../services');
 const steamKey = require('../config/config').steamAPIKey;
 
@@ -83,6 +84,50 @@ module.exports = {
                 });
             }
         });    
+    },
+
+    createNewFavGame: (req, res) => {
+
+        // Setting actual time
+        var date   = new Date();
+        var offset = date.getTimezoneOffset();
+        date.setMinutes(date.getMinutes() - offset);
+
+        User.findById(req.user._id, (err, userData) => {
+            var game = new Game();
+
+            game.userOwner = userData._id;
+            game.name      = req.body.name;
+            game.picture   = req.body.picture;
+            game.price     = parseFloat(req.body.price.replace(/[^0-9\.,]/g, ""));
+            game.link      = req.body.link;
+
+            Game.findOne({name: game.name}, (errFG, gameData) => {
+                if (errFG) return res.status(500).send({
+                    message: 'Error saving fav game in user: ' + errFG
+                });
+
+                if (gameData && game.userOwner == userData._id) return res.status(409).render({
+                    message: 'The user already has this game'
+                });
+
+                userData.wishList.push(game);
+                
+                userData.save((errUS, userStored) => {
+                    if (errUS) return res.status(500).send({
+                        message: 'Error saving fav game in user: ' + errUS
+                    });
+    
+                    game.save((errG, gameStored) => {
+                        if (errG) return res.status(500).send({
+                            message: 'Error saving fav game in user: ' + errG
+                        });
+    
+                        return res.status(200).redirect('/');
+                    });
+                });
+            });
+        });
     },
 
     /*********************************************************************************
@@ -260,6 +305,60 @@ module.exports = {
                         message: 'The user has been deleted',
                         userToDelete: userToDelete
                     });
+                });
+            });
+        });
+    },
+
+    /*********************************************************************************
+     * Web service: Delete fav game of the current user (actual session)
+     * URI: /api/user/deleteFavGame
+     * Method: POST
+     */
+    deleteFavGame: (req, res) => {
+        res.header("Access-Control-Allow-Origin", "*");
+
+        var userAuthenticated = null;
+        
+        if (req.user) userAuthenticated = req.user;
+        
+        // User from passport session
+        var userID = req.user._id; 
+        // Getting user info to delete
+        User.update({_id: userID}, { $pull: { 'wishList': { "_id": req.body.gameid } } }, (err, userData) => {
+            if (err) {
+                return res.status(500).send({
+                    success: false,
+                    message: 'Error removing game: ' + err
+                });
+            } 
+
+            if (!userData) {
+                return res.status(400).send({
+                    success: false,
+                    message: 'The game does not exist'
+                });
+            }
+
+            Game.findByIdAndRemove(req.body.gameid, (errG, gameDeleted) => {
+                if (errG) {
+                    return res.status(500).send({
+                        success: false,
+                        message: 'Error removing game: ' + errG
+                    });
+                } 
+    
+                if (!gameDeleted) {
+                    return res.status(400).send({
+                        success: false,
+                        message: 'The game does not exist'
+                    });
+                }
+
+                return res.status(200).render('gamedeleted', {
+                    userAuthenticated: userAuthenticated,
+                    gameDeleted: gameDeleted,
+                    userData: userData
                 });
             });
         });
