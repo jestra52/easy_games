@@ -1,8 +1,21 @@
 # Easy Games 
 
-API for a games recommendations app made as final project to an assignature called "Special Topics in Software Engineering". 
+Web App/API for games recommendations made as final project to an assignature called "Special Topics in Software Engineering". 
 
 Made with Node.js, Vue.js, Express.js and MongoDB. 
+
+# Deployment
+Requirements:
+ - MongoDB (>=3.4.10)
+ - Node.js (>=8.9.1)
+ - NPM (>=5.5.1)
+
+```bash
+$ git clone https://github.com/jestra52/easy_games.git
+$ sudo npm install -g gulp
+$ npm install
+$ gulp
+```
 
 # Web services
 ```bash
