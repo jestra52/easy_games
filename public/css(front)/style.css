@@ -2420,9 +2420,8 @@ input[type=text]:focus, [type=password]:focus {
   position: fixed;
   z-index: 99999;
   width: 100%;
-  height: 110%;
+  height: 90%;
 }
-
 * {
     margin: 0;
     padding: 0;

@@ -1,17 +1,28 @@
 <% include header %>
 
-<div class="container">
+<h1><%= title %></h1>
 
-    <h1><%= title %></h1>
-
-    <div class="form-group row">
-        <a href="/auth/google" class="btn btn-danger col-md-3"><span class="fa fa-google-plus"></span></a>
-        <div class="col-md-2"></div>
-        <a href="/auth/facebook" class="btn btn-primary col-md-3"><span class="fa fa-facebook"></span></a>
-    </div>
-        
-    </div>
-
+<div class="loginForm">
+      <div class="login__container">
+         <div class="login__top">
+            <img  class="login__img" src="./img/pokemoneda.png" alt="">
+            <h2 class="login__title"><span>Bienvenido</span></h2>
+         </div>
+         <form class="login__form">
+              <input type="text" placeholder="&#128100; Usuario" required autofocus>
+              <input type="text" placeholder="&#128100; Correo" required autofocus>
+              <input type="password" placeholder="&#x1F512; Contraseña" required>
+              <input type="password" placeholder="&#x1F512; Repetir contraseña" required>
+              <input class="btn__submit" type="submit" value="Ingresar">
+          </form>
+          <div class="loginBottons">
+          <div class="form-group row">
+              <a href="/auth/google" class="btn btn-danger col-md-3"><span class="fa fa-google-plus"></span></a>
+              <div class="col-md-2"></div>
+              <a href="/auth/facebook" class="btn btn-primary col-md-3"><span class="fa fa-facebook"></span></a>
+          </div>
+          </div>
+      </div>
 </div>
 
 <% include footer %>
